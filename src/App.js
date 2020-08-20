@@ -1,10 +1,12 @@
 import React, { useState, Fragment } from "react";
-import { loremIpsum } from "lorem-ipsum";
 
+import Header from "./components/Header";
 import Accordion from "./components/Accordion";
 import Search from "./components/Search";
 import Dropdown from "./components/Dropdown";
 import Translate from "./components/Translate";
+
+import Route from "./components/Route";
 
 const items = [
   {
@@ -39,33 +41,27 @@ const options = [
 
 const App = () => {
   const [selected, setSelected] = useState(options[0]);
-  const [showDropdown, setShowDropdown] = useState(true);
 
   return (
     <Fragment>
-      <div className="ui raised very padded text container segment">
-        <Translate />
-      </div>
-      <div className="ui raised very padded text container segment">
+      <Header />
+      <Route path="/">
+        <Accordion items={items} />
+      </Route>
+      <Route path="/search">
+        <Search />
+      </Route>
+      <Route path="/dropdown">
         <Dropdown
-          label="Select a Color"
+          label="Select a color"
           options={options}
           selected={selected}
           onSelectedChange={setSelected}
         />
-        <h2
-          className="ui placeholder segment header"
-          style={{ color: `${selected.value}` }}
-        >
-          {loremIpsum()}
-        </h2>
-      </div>
-      <div className="ui raised very padded text container segment">
-        <Accordion items={items} />
-      </div>
-      <div className="ui raised very padded text container segment">
-        <Search />
-      </div>
+      </Route>
+      <Route path="/translate">
+        <Translate options={options} />
+      </Route>
     </Fragment>
   );
 };

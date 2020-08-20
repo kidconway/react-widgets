@@ -1,12 +1,14 @@
 import React, { Fragment, useState } from "react";
 import Dropdown from "./Dropdown";
-
-const KEY = process.env.REACT_APP_API_KEY;
-console.log(process.env.REACT_APP_API_KEY);
+import Convert from "./Convert";
 
 const options = [
   {
-    dlabel: "Afrikaans",
+    label: "English",
+    value: "en"
+  },
+  {
+    label: "Afrikaans",
     value: "af"
   },
   {
@@ -25,7 +27,7 @@ const Translate = () => {
 
   return (
     <Fragment>
-      <div className="ui form">
+      <div className="ui form" onSubmit={e => e.preventDefault}>
         <div className="field">
           <label htmlFor="text">Enter Text</label>
           <div className="ui input container left icon">
@@ -40,13 +42,16 @@ const Translate = () => {
           </div>
         </div>
       </div>
-
+      <div className="ui divider"></div>
       <Dropdown
         label="Select a Language"
         options={options}
         selected="language"
         onSelectedChange={setLanguage}
       />
+
+      <h3 className="ui header">Output</h3>
+      <Convert text={text} language={language} />
     </Fragment>
   );
 };
