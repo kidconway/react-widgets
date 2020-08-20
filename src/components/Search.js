@@ -5,6 +5,10 @@ const Search = () => {
   const [query, setQuery] = useState("programming");
   const [results, setResults] = useState([]);
 
+  const handleSubmit = e => {
+    e.preventDefault();
+  };
+
   useEffect(() => {
     const search = async () => {
       const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
@@ -62,7 +66,7 @@ const Search = () => {
 
   return (
     <Fragment>
-      <form className="ui form">
+      <form className="ui form" onSubmit={handleSubmit}>
         <div className="field">
           <label htmlFor="input">Enter Search Term</label>
           <input
